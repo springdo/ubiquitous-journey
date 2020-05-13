@@ -5,9 +5,9 @@
 
 bootstrap-project:
   enabled: true
-  ci_cd_namespace: &ci_cd "labs-ci-cd"
-  dev_namespace: &dev "labs-dev"
-  test_namespace: &test "labs-test"
+  ci_cd_namespace: &ci_cd "ds-ci-cd"
+  dev_namespace: &dev "ds-dev"
+  test_namespace: &test "ds-test"
   namespaces:
   - name: *ci_cd
     bindings:
@@ -56,16 +56,16 @@ argocd-operator:
   enabled: true
   name: argocd
   namespace: *ci_cd
-  instancelabel: rht-labs.com/uj
+  instancelabel: ds.rht-labs.com/uj
   
   # operator manages upgrades etc
-  version: v1.5.2
+  version: v1.5.4
   operator:
     version: argocd-operator.v0.0.8
     channel: alpha
     name: argocd-operator
 
   metrics:
-    enabled: true
+    enabled: false
     prometheus:
       version: prometheusoperator.0.32.0
