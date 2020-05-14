@@ -8,6 +8,7 @@ bootstrap-project:
   ci_cd_namespace: &ci_cd "ds-ci-cd"
   dev_namespace: &dev "ds-dev"
   test_namespace: &test "ds-test"
+  staging_namespace: &stage "ds-staging"
   namespaces:
   - name: *ci_cd
     bindings:
@@ -47,6 +48,18 @@ bootstrap-project:
       kind: ServiceAccount
       role: admin
       namespace: *ci_cd
+  - name: *stage
+    bindings:
+    - name: labs-devs
+      kind: Group
+      role: edit
+    - name: labs-admins
+      kind: Group
+      role: admin
+    - name: jenkins
+      kind: ServiceAccount
+      role: admin
+      namespace: *ci_cd
 
   serviceaccounts:
   - name: jenkins
@@ -64,6 +77,9 @@ argocd-operator:
     version: argocd-operator.v0.0.8
     channel: alpha
     name: argocd-operator
+
+  accounts:
+    accounts.admin: apiKey, login
 
   metrics:
     enabled: false
