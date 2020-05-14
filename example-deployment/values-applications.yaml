@@ -2,8 +2,6 @@
 destination_test: &test_ns ds-test
 destination_staging: &staging_ns ds-staging
 helm_repository: &helm_repo "https://nexus-ds-ci-cd.apps.hivec.sandbox1559.opentlc.com/repository/helm-charts/"
-
-
 ##############
 # Application Custom Values
 #############
@@ -15,7 +13,6 @@ pet_battle: &front_end_values
   # image_name: pet-battle
   # image_namespace: labs-ci-cd
   config_map: "'http://pet-battle-api-ds-test.apps.s43.core.rht-labs.com'"
-
 pet_battle_api: &api_values
   appName: pet-battle-api
 ##############
@@ -33,8 +30,8 @@ ignore_differences: &ignore_differences
 # Argo App of Apps declaration
 #############
 applications:
-  # Test App deployment 
-- name: test-pet-battle
+- # Test App deployment 
+  name: test-pet-battle
   enabled: true
   source: *helm_repo
   source_path: ""
@@ -51,7 +48,6 @@ applications:
   destination: *test_ns
   source_ref: master
   ignore_differences: *ignore_differences
-
   # Staging App deployment 
 - name: pet-battle
   enabled: true
