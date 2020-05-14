@@ -2,9 +2,9 @@
 
 🧰 This repo is an Argo App definition which references [other charts](https://github.com/rht-labs/charts.git). It should not exclusively run Helm Templates but be a more generic Argo App which could reference Kustomize or Operators etc.
 
-🎨 This is the new home for the evolution of what was [Labs CI / CD](https://github.com/rht-labs/labs-ci-cd.git). This project represents a majour milestone in moving away from the 3.x OpenShift clusters to a new GitOps approach to tooling, app management and configuration drift using [ArgoCD](https://argoproj.github.io/argo-cd/).
+🎨 This is the new home for the evolution of what was [Labs CI / CD](https://github.com/rht-labs/labs-ci-cd.git). This project represents a major milestone in moving away from the 3.x OpenShift clusters to a new GitOps approach to tooling, app management and configuration drift using [ArgoCD](https://argoproj.github.io/argo-cd/).
 
-There are three main components (one in each folder) to this repository. Each part can be used independantly of each other but sequentially they create the full stack. If you already have an ArgoCD instance you want to add the tooling to just [move to part 2](#tooling-for-application-development):
+There are three main components (one in each folder) to this repository. Each part can be used independently of each other but sequentially they create the full stack. If you already have an ArgoCD instance you want to add the tooling to just [move to part 2](#tooling-for-application-development):
 1. Bootstrap - Contains references two helm charts used to create and manage projects and deploy ArgoCD
 2. Ubiquitous Journey - Contains all the tools and collaboration software to be deployed on Red Hat OpenShift. This includes chat applications, task management apps and tools to support CI/CD workflows and testing.
 3. An example (pet-battle) to show how the same structure can be used to implement GitOps for a simple three tiered app stack.
@@ -98,7 +98,7 @@ helm template labs -f argo-app-of-apps.yaml ubiquitous-journey/ | oc apply -f-
 ## Deploy to a custom namespace 🦴
 Because this is GitOps to make changes to the namespaces etc they should really be committed to git.... For example, if you wanted to create a `my-ci-cd` for all the tooling to be deployed to, the steps are simple. Fork this repo and make the following changes there:
 
-1. Run `set-namespace.sh $ci_cd $dev $test` where `$ci_cd $dev $test` are the namespaces you would like to bootstrap eg `./set-namespace.sh my-ci-cd my-dev my-test`. This will update the following files: 
+1. Run `set-namespace.sh $ci_cd $dev $test $staging` where `$ci_cd $dev $test $staging` are the namespaces you would like to bootstrap eg `./set-namespace.sh my-ci-cd my-dev my-test my-staging`. This will update the following files: 
 * `bootstrap/values-bootstrap.yaml`: the `ci_cd_namesapce` and argocd namespace `namespace: "my-ci-cd"`.
 * `ubiquitous-journey/values-tooling.yaml`: the `destination: &ci_cd_ns my-ci-cd`
 * `example-deployment/values-applications.yaml`: the `destination: &ci_cd_ns my-dev`
@@ -190,7 +190,7 @@ argocd app create bootstrap-journey \
 argocd app sync bootstrap-journey
 ```
 
-4. Your new ArgoCD instance should spin up. You can now connect your `ubiquitous-journey` or `example-deployment` to it be following the instructions above
+4. Your new ArgoCD instance should spin up. You can now connect your `ubiquitous-journey` or `example-deployment` to it by following the instructions above
 
 ## Cleaning up ArgoCD Apps 🧹
 Sometime ArgoCD `Application` CRs can get stuck after they've been deleted and cause funky issues.

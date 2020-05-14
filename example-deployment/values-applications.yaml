@@ -1,5 +1,5 @@
 # Over rides for default values in Helm Charts
-destination: &dev_ns ds-dev
+destination: &test_ns ds-dev
 ##############
 # Application Custom Values
 #############
@@ -34,7 +34,7 @@ applications:
   source: https://github.com/springdo/pet-battle.git
   source_path: helm
   sync_policy_automated: true
-  destination: *dev_ns
+  destination: *test_ns
   source_ref: master
   values: *front_end_values
   ignore_differences: *ignore_differences
@@ -43,7 +43,7 @@ applications:
   source: https://github.com/eformat/pet-battle-api.git
   source_path: chart
   sync_policy_automated: true
-  destination: *dev_ns
+  destination: *test_ns
   source_ref: master
   values: *api_values
   ignore_differences: *ignore_differences
