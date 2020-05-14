@@ -17,7 +17,7 @@ jenkins_values: &jenkins_values
       username: token
       password: aaa.bbb.ccc
   buildconfigs:
-    - name: *name
+    - name: jenkins
       build_trigger_secret: 'shhhhh-this-is-my-super-duper-secret123-shhhhh'
       strategy_type: "Source"
       source_secret: 'git-auth'
