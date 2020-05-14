@@ -1,5 +1,9 @@
 # Over rides for default values in Helm Charts
-destination: &test_ns ds-dev
+destination_test: &test_ns ds-test
+destination_staging: &staging_ns ds-stage
+helm_repository: &helm_repo "https://nexus-ds-ci-cd.apps.hivec.sandbox1559.opentlc.com/repository/helm-charts/"
+
+
 ##############
 # Application Custom Values
 #############
@@ -10,7 +14,7 @@ pet_battle: &front_end_values
   # image_repository: image-registry.openshift-image-registry.svc:5000
   # image_name: pet-battle
   # image_namespace: labs-ci-cd
-  config_map: "'http://pet-battle-api-ds-dev.apps.s43.core.rht-labs.com'"
+  config_map: "'http://pet-battle-api-ds-test.apps.s43.core.rht-labs.com'"
 
 pet_battle_api: &api_values
   appName: pet-battle-api
@@ -29,21 +33,41 @@ ignore_differences: &ignore_differences
 # Argo App of Apps declaration
 #############
 applications:
-- name: pet-battle
+  # Test App deployment 
+- name: test-pet-battle
   enabled: true
-  source: https://github.com/springdo/pet-battle.git
-  source_path: helm
+  source: *helm_repo
+  source_path: ""
+  chart_name: pet-battle # probs over written in jenkins
+  sync_policy_automated: true
+  destination: *test_ns
+  source_ref: "1.0.0" # probs over written in jenkins
+  ignore_differences: *ignore_differences
+- name: test-pet-battle-api
+  enabled: true
+  source: https://github.com/eformat/pet-battle-api.git
+  source_path: ""
   sync_policy_automated: true
   destination: *test_ns
   source_ref: master
-  values: *front_end_values
+  ignore_differences: *ignore_differences
+
+  # Staging App deployment 
+- name: pet-battle
+  enabled: true
+  source: *helm_repo
+  source_path: ""
+  chart_name: pet-battle # probs over written in jenkins
+  sync_policy_automated: true
+  destination: *staging_ns
+  source_ref: "1.0.0" # probs over written in jenkins
   ignore_differences: *ignore_differences
 - name: pet-battle-api
   enabled: true
-  source: https://github.com/eformat/pet-battle-api.git
-  source_path: chart
+  source: *helm_repo
+  source_path: ""
+  chart_name: pet-battle-api # probs over written in jenkins
   sync_policy_automated: true
-  destination: *test_ns
-  source_ref: master
-  values: *api_values
+  destination: *staging_ns
+  source_ref: "1.0.0" # probs over written in jenkins
   ignore_differences: *ignore_differences

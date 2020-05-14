@@ -1,6 +1,7 @@
 {{- if .Values.applications }}
 {{- range $app := .Values.applications }}
 {{- if $app.enabled }}
+
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -29,6 +30,7 @@ spec:
     path: {{ $app.source_path }}
     repoURL: {{ $app.source }}
     targetRevision: {{ $app.source_ref | default "master" }}
+    chart: {{ $app.chartName }}
 {{- if $app.sync_policy_automated }}
   syncPolicy:
     automated:
