@@ -16,6 +16,45 @@ jenkins_values: &jenkins_values
     - name: argocd-token
       username: token
       password: aaa.bbb.ccc
+  buildconfigs:
+    - name: *name
+      build_trigger_secret: 'shhhhh-this-is-my-super-duper-secret123-shhhhh'
+      strategy_type: "Source"
+      source_secret: 'git-auth'
+      pull_secret: ''
+      source_repo: https://github.com/rht-labs/s2i-config-jenkins.git
+      source_repo_ref: v1.6
+      source_context_dir: '/'
+      builder_image_name: jenkins
+      builder_image_tag: '2'
+    - name: "jenkins-slave-mvn"
+      strategy_type: "Docker"
+      source_context_dir: "jenkins-slaves/jenkins-slave-mvn"
+      source_repo: "https://github.com/redhat-cop/containers-quickstarts"
+      source_repo_ref: "v1.22"
+      builder_image_name: "quay.io/eformat/origin-jenkins-agent-maven"
+      builder_image_tag: "latest"
+    - name: "jenkins-slave-helm"
+      strategy_type: "Docker"
+      source_context_dir: "jenkins-slaves/jenkins-slave-helm"
+      source_repo: "https://github.com/redhat-cop/containers-quickstarts"
+      source_repo_ref: "master"
+      builder_image_name: "quay.io/openshift/origin-jenkins-agent-base"
+      builder_image_tag: "4.3"
+    - name: "jenkins-slave-argocd"
+      strategy_type: "Docker"
+      source_context_dir: "jenkins-slaves/jenkins-slave-argocd"
+      source_repo: "https://github.com/redhat-cop/containers-quickstarts"
+      source_repo_ref: "master"
+      builder_image_name: "quay.io/openshift/origin-jenkins-agent-base"
+      builder_image_tag: "4.3"  
+    - name: "jenkins-slave-npm"
+      strategy_type: "Docker"
+      source_context_dir: "jenkins-slaves/jenkins-slave-npm"
+      source_repo: "https://github.com/redhat-cop/containers-quickstarts"
+      source_repo_ref: "master"
+      builder_image_name: "openshift/jenkins-slave-base-centos7"
+      builder_image_tag: "v3.11"
 
 ##############
 # 🛎 Pact Broker Custom Values
@@ -271,14 +310,12 @@ sync_policy_no_selfheal: &sync_policy_no_selfheal
 applications:
   - name: nexus
     enabled: true
-    source: https://github.com/Oteemo/charts.git
+    source: https://github.com/eformat/charts.git
     source_path: charts/sonatype-nexus
-    source_ref: "sonatype-nexus-2.1.0"
+    source_ref: "feature/sonatype-nexus"
     sync_policy:
-      *sync_policy_true
+      *sync_policy_no_selfheal
     destination: *ci_cd_ns
-    values:
-      *nexus_values
     ignore_differences: *nexus_ignore_differences
   - name: jenkins
     enabled: true
