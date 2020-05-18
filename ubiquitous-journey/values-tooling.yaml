@@ -5,7 +5,6 @@ destination: &ci_cd_ns ds-ci-cd
 # 🛎 Jenkins Custom Values
 #############
 jenkins_values: &jenkins_values
-  persistence: false
   source_secrets:
     - name: git-auth
       username: idm-sa
