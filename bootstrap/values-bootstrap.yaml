@@ -5,12 +5,11 @@
 
 bootstrap-project:
   enabled: true
-  ci_cd_namespace: &ci_cd "ds-ci-cd"
-  dev_namespace: &dev "ds-dev"
-  test_namespace: &test "ds-test"
-  staging_namespace: &stage "ds-staging"
-  bindings: &binds
-      # this labs-devs is the GROUP NAME in IDM
+  ci_cd_namespace: &ci_cd 'vodafone-ci-cd'
+  dev_namespace: &dev 'vodafone-dev'
+  test_namespace: &test 'vodafone-test'
+  staging_namespace: &stage 'vodafone-staging'
+  bindings: &binds # this labs-devs is the GROUP NAME in IDM
     - name: labs-devs
       kind: Group
       role: edit
@@ -24,29 +23,25 @@ bootstrap-project:
       namespace: *ci_cd
 
   namespaces:
-  - name: *ci_cd
-    bindings:
-      *binds
-  - name: *dev
-    bindings:
-      *binds
-  - name: *test
-    bindings:
-      *binds
-  - name: *stage
-    bindings:
-      *binds
+    - name: *ci_cd
+      bindings: *binds
+    - name: *dev
+      bindings: *binds
+    - name: *test
+      bindings: *binds
+    - name: *stage
+      bindings: *binds
 
   serviceaccounts:
-  - name: jenkins
-    namespace: *ci_cd
+    - name: jenkins
+      namespace: *ci_cd
 
 argocd-operator:
   enabled: true
   name: argocd
   namespace: *ci_cd
   instancelabel: ds.rht-labs.com/uj
-  
+
   # operator manages upgrades etc
   version: v1.5.5
   operator:
