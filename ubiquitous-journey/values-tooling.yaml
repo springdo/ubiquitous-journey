@@ -310,9 +310,9 @@ sync_policy_no_selfheal: &sync_policy_no_selfheal
 applications:
   - name: nexus
     enabled: true
-    source: https://github.com/eformat/charts.git
+    source: https://github.com/rht-labs/charts.git
     source_path: charts/sonatype-nexus
-    source_ref: "feature/sonatype-nexus"
+    source_ref: "sonatype-nexus-0.0.1"
     sync_policy:
       *sync_policy_no_selfheal
     destination: *ci_cd_ns
