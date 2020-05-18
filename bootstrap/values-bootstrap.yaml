@@ -5,12 +5,11 @@
 
 bootstrap-project:
   enabled: true
-  ci_cd_namespace: &ci_cd "voda-ci-cd"
-  dev_namespace: &dev "voda-dev"
-  test_namespace: &test "voda-test"
-  staging_namespace: &stage "voda-staging"
-  bindings: &binds
-      # this labs-devs is the GROUP NAME in IDM
+  ci_cd_namespace: &ci_cd 'vodafone-ci-cd'
+  dev_namespace: &dev 'vodafone-dev'
+  test_namespace: &test 'vodafone-test'
+  staging_namespace: &stage 'vodafone-staging'
+  bindings: &binds # this labs-devs is the GROUP NAME in IDM
     - name: labs-devs
       kind: Group
       role: edit
@@ -24,35 +23,34 @@ bootstrap-project:
       namespace: *ci_cd
 
   namespaces:
-  - name: *ci_cd
-    bindings:
-      *binds
-  - name: *dev
-    bindings:
-      *binds
-  - name: *test
-    bindings:
-      *binds
-  - name: *stage
-    bindings:
-      *binds
+    - name: *ci_cd
+      bindings: *binds
+    - name: *dev
+      bindings: *binds
+    - name: *test
+      bindings: *binds
+    - name: *stage
+      bindings: *binds
 
   serviceaccounts:
-  - name: jenkins
-    namespace: *ci_cd
+    - name: jenkins
+      namespace: *ci_cd
 
 argocd-operator:
   enabled: true
   name: argocd
   namespace: *ci_cd
-  instancelabel: voda.rht-labs.com/uj
-  
+  instancelabel: vodafone.labs.com/uj
+
   # operator manages upgrades etc
-  version: v1.5.4
+  version: v1.5.5
   operator:
     version: argocd-operator.v0.0.8
     channel: alpha
     name: argocd-operator
+
+  accounts:
+    accounts.admin: apiKey, login
 
   metrics:
     enabled: false

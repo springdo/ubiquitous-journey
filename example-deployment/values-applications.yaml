@@ -1,17 +1,15 @@
 # Over rides for default values in Helm Charts
-destination: &test_ns voda-dev
+cluster: &cluster_domain demo-cluster.ocp-poc.com
+destination_test: &test_ns vodafone-test
+destination_staging: &staging_ns vodafone-staging
+helm_repository: &helm_repo 'https://nexus-vodafone-ci-cd.apps.demo-cluster.ocp-poc.com/repository/helm-charts/'
+
 ##############
 # Application Custom Values
 #############
 # toggle between versions of the app by setting the tag to grey / purple or latest
 pet_battle: &front_end_values
-  app_tag: latest
-  # Could be over written in a jenkins file or your fork when doing CI/CD 
-  # image_repository: image-registry.openshift-image-registry.svc:5000
-  # image_name: pet-battle
-  # image_namespace: labs-ci-cd
-  config_map: "'http://pet-battle-api-voda-dev.apps.s43.core.rht-labs.com'"
-
+  config_map: "'http://pet-battle-api-vodafone-test.apps.demo-cluster.ocp-poc.com'"
 pet_battle_api: &api_values
   appName: pet-battle-api
 ##############
@@ -29,21 +27,39 @@ ignore_differences: &ignore_differences
 # Argo App of Apps declaration
 #############
 applications:
-- name: pet-battle
-  enabled: true
-  source: https://github.com/springdo/pet-battle.git
-  source_path: chart
-  sync_policy_automated: true
-  destination: *test_ns
-  source_ref: master
-  values: *front_end_values
-  ignore_differences: *ignore_differences
-- name: pet-battle-api
-  enabled: true
-  source: https://github.com/eformat/pet-battle-api.git
-  source_path: chart
-  sync_policy_automated: true
-  destination: *test_ns
-  source_ref: master
-  values: *api_values
-  ignore_differences: *ignore_differences
+  - name: test-pet-battle # Test App deployment
+    enabled: true
+    source: *helm_repo
+    source_path: ''
+    chart_name: pet-battle # probs over written in jenkins
+    sync_policy_automated: true
+    destination: *test_ns
+    source_ref: 1.0.0
+    ignore_differences: *ignore_differences
+  - name: test-pet-battle-api
+    enabled: true
+    source: https://github.com/eformat/pet-battle-api.git
+    source_path: ''
+    sync_policy_automated: true
+    destination: *test_ns
+    source_ref: master
+    ignore_differences: *ignore_differences
+    # Staging App deployment
+  - name: pet-battle
+    enabled: true
+    source: *helm_repo
+    source_path: ''
+    chart_name: pet-battle # probs over written in jenkins
+    sync_policy_automated: true
+    destination: *staging_ns
+    source_ref: '1.0.0' # probs over written in jenkins
+    ignore_differences: *ignore_differences
+  - name: pet-battle-api
+    enabled: true
+    source: *helm_repo
+    source_path: ''
+    chart_name: pet-battle-api # probs over written in jenkins
+    sync_policy_automated: true
+    destination: *staging_ns
+    source_ref: 1.0.0
+    ignore_differences: *ignore_differences
