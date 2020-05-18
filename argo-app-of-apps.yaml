@@ -3,7 +3,7 @@
 #############
 
 applications:
-    destination: vodafone-ci-cd
+    destination: vodafone-cicd
   - name: ubiquitous-journey
     enabled: true
     source: https://github.com/rht-labs/ubiquitous-journey.git
@@ -13,7 +13,7 @@ applications:
     helm_values:
       - values-tooling.yaml
   - name: example-deployment
-    destination: vodafone-ci-cd
+    destination: vodafone-cicd
     enabled: false
     source: https://github.com/rht-labs/ubiquitous-journey.git
     source_path: example-deployment

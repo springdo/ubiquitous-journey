@@ -1,5 +1,5 @@
 # Over rides for default values in Helm Charts
-destination: &ci_cd_ns vodafone-ci-cd
+destination: &ci_cd_ns vodafone-cicd
 
 ##############
 # 🛎 Jenkins Custom Values
@@ -18,7 +18,7 @@ jenkins_values: &jenkins_values
   buildconfigs:
     - name: jenkins
       build_trigger_secret: 'shhhhh-this-is-my-super-duper-secret123-shhhhh'
-      strategy_type: "Source"
+      strategy_type: 'Source'
       source_secret: 'git-auth'
       pull_secret: ''
       source_repo: https://github.com/rht-labs/s2i-config-jenkins.git
@@ -26,95 +26,95 @@ jenkins_values: &jenkins_values
       source_context_dir: '/'
       builder_image_name: jenkins
       builder_image_tag: '2'
-    - name: "jenkins-slave-mvn"
-      strategy_type: "Docker"
-      source_context_dir: "jenkins-slaves/jenkins-slave-mvn"
-      source_repo: "https://github.com/redhat-cop/containers-quickstarts"
-      source_repo_ref: "v1.22"
-      builder_image_name: "quay.io/eformat/origin-jenkins-agent-maven"
-      builder_image_tag: "latest"
-    - name: "jenkins-slave-helm"
-      strategy_type: "Docker"
-      source_context_dir: "jenkins-slaves/jenkins-slave-helm"
-      source_repo: "https://github.com/redhat-cop/containers-quickstarts"
-      source_repo_ref: "master"
-      builder_image_name: "quay.io/openshift/origin-jenkins-agent-base"
-      builder_image_tag: "4.3"
-    - name: "jenkins-slave-argocd"
-      strategy_type: "Docker"
-      source_context_dir: "jenkins-slaves/jenkins-slave-argocd"
-      source_repo: "https://github.com/redhat-cop/containers-quickstarts"
-      source_repo_ref: "master"
-      builder_image_name: "quay.io/openshift/origin-jenkins-agent-base"
-      builder_image_tag: "4.3"  
-    - name: "jenkins-slave-npm"
-      strategy_type: "Docker"
-      source_context_dir: "jenkins-slaves/jenkins-slave-npm"
-      source_repo: "https://github.com/redhat-cop/containers-quickstarts"
-      source_repo_ref: "master"
-      builder_image_name: "openshift/jenkins-slave-base-centos7"
-      builder_image_tag: "v3.11"
+    - name: 'jenkins-slave-mvn'
+      strategy_type: 'Docker'
+      source_context_dir: 'jenkins-slaves/jenkins-slave-mvn'
+      source_repo: 'https://github.com/redhat-cop/containers-quickstarts'
+      source_repo_ref: 'v1.22'
+      builder_image_name: 'quay.io/eformat/origin-jenkins-agent-maven'
+      builder_image_tag: 'latest'
+    - name: 'jenkins-slave-helm'
+      strategy_type: 'Docker'
+      source_context_dir: 'jenkins-slaves/jenkins-slave-helm'
+      source_repo: 'https://github.com/redhat-cop/containers-quickstarts'
+      source_repo_ref: 'master'
+      builder_image_name: 'quay.io/openshift/origin-jenkins-agent-base'
+      builder_image_tag: '4.3'
+    - name: 'jenkins-slave-argocd'
+      strategy_type: 'Docker'
+      source_context_dir: 'jenkins-slaves/jenkins-slave-argocd'
+      source_repo: 'https://github.com/redhat-cop/containers-quickstarts'
+      source_repo_ref: 'master'
+      builder_image_name: 'quay.io/openshift/origin-jenkins-agent-base'
+      builder_image_tag: '4.3'
+    - name: 'jenkins-slave-npm'
+      strategy_type: 'Docker'
+      source_context_dir: 'jenkins-slaves/jenkins-slave-npm'
+      source_repo: 'https://github.com/redhat-cop/containers-quickstarts'
+      source_repo_ref: 'master'
+      builder_image_name: 'openshift/jenkins-slave-base-centos7'
+      builder_image_tag: 'v3.11'
 
 ##############
 # 🐙 Argo Ignore Differences
 #############
 jenkins_ignore_differences: &jenkins_ignore_differences
   ignoreDifferences:
-  - group: apps.openshift.io
-    kind: DeploymentConfig
-    jsonPointers:
-    - /spec/template/spec/containers/0/image
-    - /spec/triggers/0/imageChangeParams/lastTriggeredImage
-  - group: build.openshift.io
-    kind: BuildConfig
-    jsonPointers:
-    - /spec/triggers
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jsonPointers:
+        - /spec/template/spec/containers/0/image
+        - /spec/triggers/0/imageChangeParams/lastTriggeredImage
+    - group: build.openshift.io
+      kind: BuildConfig
+      jsonPointers:
+        - /spec/triggers
 
 nexus_ignore_differences: &nexus_ignore_differences
   ignoreDifferences:
-  - group: route.openshift.io
-    kind: Route
-    jsonPointers:
-    - /status/ingress
+    - group: route.openshift.io
+      kind: Route
+      jsonPointers:
+        - /status/ingress
 
 hoverflyignore_differences: &hoverfly_ignore_differences
   ignoreDifferences:
-  - group: route.openshift.io
-    kind: Route
-    jsonPointers:
-    - /status/ingress
-    - /spec/host
-  - group: apps/v1
-    kind: Deployment
-    jsonPointers:
-    - /spec/replicas
+    - group: route.openshift.io
+      kind: Route
+      jsonPointers:
+        - /status/ingress
+        - /spec/host
+    - group: apps/v1
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas
 
 crw_ignore_differences: &crw_ignore_differences
   ignoreDifferences:
-  - group: org.eclipse.che
-    kind: CheCluster
-    jsonPointers:
-    - /spec
+    - group: org.eclipse.che
+      kind: CheCluster
+      jsonPointers:
+        - /spec
 
 dev-ex-dashboard_ignore_differences: &dev-ex-dashboard_ignore_differences
   ignoreDifferences:
-  - group: apps.openshift.io
-    kind: DeploymentConfig
-    jsonPointers:
-    - /spec/template/spec/containers/0/image
-    - /spec/triggers/0/imageChangeParams/lastTriggeredImage
-  - group: ''
-    kind: ConfigMap
-    jsonPointers:
-    - /data
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jsonPointers:
+        - /spec/template/spec/containers/0/image
+        - /spec/triggers/0/imageChangeParams/lastTriggeredImage
+    - group: ''
+      kind: ConfigMap
+      jsonPointers:
+        - /data
 
 owncloud_ignore_differences: &owncloud_ignore_differences
   ignoreDifferences:
-  - group: apps.openshift.io
-    kind: DeploymentConfig
-    jsonPointers:
-    - /spec/template/spec/containers/0/image
-    - /spec/triggers/0/imageChangeParams/lastTriggeredImage
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jsonPointers:
+        - /spec/template/spec/containers/0/image
+        - /spec/triggers/0/imageChangeParams/lastTriggeredImage
 
 ##############
 # 🐙 Argo Sync Policy
@@ -143,21 +143,18 @@ applications:
     enabled: true
     source: https://github.com/rht-labs/charts.git
     source_path: charts/sonatype-nexus
-    source_ref: "sonatype-nexus-0.0.1"
-    sync_policy:
-      *sync_policy_no_selfheal
+    source_ref: 'sonatype-nexus-0.0.1'
+    sync_policy: *sync_policy_no_selfheal
     destination: *ci_cd_ns
     ignore_differences: *nexus_ignore_differences
   - name: jenkins
     enabled: true
     source: https://github.com/rht-labs/helm-charts.git
     source_path: charts/jenkins
-    source_ref: "jenkins-0.0.12"
-    sync_policy:
-      *sync_policy_true
+    source_ref: 'jenkins-0.0.12'
+    sync_policy: *sync_policy_true
     destination: *ci_cd_ns
-    values:
-      *jenkins_values
+    values: *jenkins_values
     ignore_differences: *jenkins_ignore_differences
   - name: crw
     enabled: false
@@ -165,7 +162,6 @@ applications:
     source: https://github.com/rht-labs/refactored-adventure
     source_path: crw/base
     source_ref: master
-    sync_policy:
-      *sync_policy_no_selfheal
+    sync_policy: *sync_policy_no_selfheal
     no_helm: true
     ignore_differences: *crw_ignore_differences

@@ -5,7 +5,7 @@
 
 bootstrap-project:
   enabled: true
-  ci_cd_namespace: &ci_cd 'vodafone-ci-cd'
+  ci_cd_namespace: &ci_cd 'vodafone-cicd'
   dev_namespace: &dev 'vodafone-dev'
   test_namespace: &test 'vodafone-test'
   staging_namespace: &stage 'vodafone-staging'
@@ -40,7 +40,7 @@ argocd-operator:
   enabled: true
   name: argocd
   namespace: *ci_cd
-  instancelabel: vodafone.labs.com/uj
+  instancelabel: poc.vodafone.com/uj
 
   # operator manages upgrades etc
   version: v1.5.5
@@ -48,9 +48,6 @@ argocd-operator:
     version: argocd-operator.v0.0.8
     channel: alpha
     name: argocd-operator
-
-  accounts:
-    accounts.admin: apiKey, login
 
   metrics:
     enabled: false
