@@ -54,182 +54,14 @@ jenkins_values: &jenkins_values
       source_repo_ref: "master"
       builder_image_name: "openshift/jenkins-slave-base-centos7"
       builder_image_tag: "v3.11"
-
-##############
-# 🛎 Pact Broker Custom Values
-#############
-pact_broker_values: &pact_broker_values
-  secrets:
-    name: pact-broker-secrets
-    keys:
-      pactBrokerDatabaseUsername: pact_broker_database_username
-      pactBrokerDatabasePassword: pact_broker_database_password
-      pactBrokerAdmin: pact_broker_admin
-      pactBrokerAdminPassword: pact_broker_admin_password
-      pactBrokerBasicAuthUsername: pact_broker_user
-      pactBrokerBasicAuthPassword: pact_broker_user_password
-    values:
-      pactBrokerDatabaseUsername: pact_broker_user
-      pactBrokerDatabasePassword: thisisdefinitelynotmypassword
-      pactBrokerAdmin: admin
-      pactBrokerAdminPassword: thisisdefinitelynotmypassword
-      pactBrokerBasicAuthUsername: dev
-      pactBrokerBasicAuthPassword: thisisdefinitelynotmypassword
-
-##############
-# 🛎 Sonatype Nexus Custom Values
-#############
-nexus_values: &nexus_values
-  nexus:
-    imageName: sonatype/nexus3
-    imageTag: 3.22.1
-    service:
-      type: ClusterIP
-    podAnnotations: {}
-    securityContextEnabled: false
-
-  route:
-    enabled: true
-    name: nexus
-    portName: nexus-service
-    path: null
-
-  nexusProxy:
-    enabled: false
-
-  persistence:
-    storageSize: 5Gi
-
-  serviceAccount:
-    name: nexus
-    annotations: {}
-
-  additionalConfigMaps:
-    - name: maven-central
-      labels:
-        nexus-type: repository
-      data:
-        recipe: 'MavenProxy'
-        remoteUrl: 'https://repo.maven.apache.org/maven2/'
-        blobStoreName: 'default'
-        strictContentTypeValidation: 'true'
-        versionPolicy: 'RELEASE'
-        layoutPolicy: 'STRICT'
-    - name: labs-static
-      labels:
-        nexus-type: repository
-      data:
-        recipe: 'RawHosted'
-        blobStoreName: 'default'
-    - name: labs-npm
-      labels:
-        nexus-type: repository
-      data:
-        recipe: 'NpmProxy'
-        blobStoreName: 'default'
-        remoteUrl: 'https://registry.npmjs.org'
-    - name: labs-charts
-      labels:
-        nexus-type: repository
-      data:
-        recipe: 'HelmHosted'
-        blobStoreName: 'default'
-
-  deployment:
-    annotations: {}
-    initContainers:
-      - name: k8s-plugin-puller
-        image: curlimages/curl:latest
-        imagePullPolicy: Always
-        command: ['sh','-c']
-        args: ['curl -L -o /k8s-plugin/nexus-openshift-plugin.jar https://github.com/sonatype-nexus-community/nexus-kubernetes-openshift/releases/download/v0.2.8/nexus-openshift-plugin-0.2.8.jar']
-        volumeMounts:
-          - name: k8s-plugin
-            mountPath: /k8s-plugin
-    additionalVolumes:
-      - name: k8s-plugin
-        emptyDir: {}
-    additionalVolumeMounts:
-      - mountPath: /opt/sonatype/nexus/deploy/nexus-openshift-plugin.jar
-        name: k8s-plugin
-        subPath: nexus-openshift-plugin.jar
-
-  service:
-    enabled: true
-    name: nexus-service
-    labels: {}
-    annotations: {}
-    portName: nexus-service
-    port: 8081
-    targetPort: 8081
-    ports: []
-
-##############
-# 🛎 Zalenium Custom Values
-#############
-## TODO: Update source URL as upstream when ArgoCD version is greater 1.5.0 or above
-zalenium_values: &zalenium_values
-  hub:
-    serviceType: ClusterIP
-    openshift:
-      deploymentConfig:
-        enabled: true
-      route:
-        enabled: true
-    persistence:
-      enabled: false
-    serviceAccount:
-      create: false
-    desiredContainers: 0
-    podAnnotations:
-      app: zalenium
-
-##############
-# 🛎 Hoverfly Custom Values
-# Values reference https://github.com/helm/charts/tree/master/incubator/hoverfly
-#############
-hoverfly_values: &hoverfly_values
-  replicaCount: "1"
-  openshift:
-    route:
-      admin:
-        enabled: true
-        hostname: ""
-      proxy:
-        enabled: true
-        hostname: ""
-
-##############
-# 🛎 Wekan Custom Values
-# Values reference https://github.com/wekan/wekan/tree/master/helm/wekan
-#############
-wekan_values: &wekan_values
-  service:
-    type: ClusterIP
-  autoscaling:
-    enabled: false
-  mongodb-replicaset:
-    replicas: 1
-    securityContext:
-      runAsUser: ""
-      fsGroup: ""
-  ingress:
-    enabled: false
-  route:
-    enabled: true
-
-##############
-# 🛎 Mattermost Custom Values
-# Values reference https://github.com/mattermost/mattermost-helm
-#############
-mattermost_values: &mattermost_values
-  route:
-    enabled: true
-  mysql:
-    mysqlRootPassword: "mysqlpass"
-    mysqlUser: "mattermost"
-    mysqlPassword: "matterpass"
-
+  imagestreams:
+    # Jenkins Imagestream for custom build or external
+    - name: jenkins
+    # Jenkins agents image streams
+    - name: jenkins-slave-mvn
+    - name: jenkins-slave-argocd
+    - name: jenkins-slave-helm
+    - name: jenkins-slave-npm
 
 ##############
 # 🐙 Argo Ignore Differences
@@ -356,7 +188,7 @@ applications:
     no_helm: true
     ignore_differences: *crw_ignore_differences
   - name: zalenium
-    enabled: true
+    enabled: false
     source: https://github.com/zalando/zalenium.git
     source_path: charts/zalenium
     source_ref: "master"
