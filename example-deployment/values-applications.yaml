@@ -1,17 +1,8 @@
 # Over rides for default values in Helm Charts
-cluster: &cluster_domain demo-cluster.ocp-poc.com
 destination_test: &test_ns vodafone-test
 destination_staging: &staging_ns vodafone-staging
 helm_repository: &helm_repo 'https://nexus-vodafone-ci-cd.apps.demo-app-cluster.walkersdev.co.uk/repository/helm-charts/'
 
-##############
-# Application Custom Values
-#############
-# toggle between versions of the app by setting the tag to grey / purple or latest
-pet_battle: &front_end_values
-  config_map: "'http://pet-battle-api-vodafone-test.apps.demo-app-cluster.walkersdev.co.uk'"
-pet_battle_api: &api_values
-  appName: pet-battle-api
 ##############
 # Argo Ignore Differences
 #############
@@ -34,6 +25,8 @@ applications:
     chart_name: pet-battle # probs over written in jenkins
     sync_policy_automated: true
     destination: *test_ns
+    values:
+      config_map: "'http://pet-battle-api-vodafone-test.apps.demo-app-cluster.walkersdev.co.uk'"
     source_ref: 1.0.0
     ignore_differences: *ignore_differences
   - name: test-pet-battle-api
@@ -52,6 +45,8 @@ applications:
     chart_name: pet-battle # probs over written in jenkins
     sync_policy_automated: true
     destination: *staging_ns
+    values:
+      config_map: "'http://pet-battle-api-vodafone-staging.apps.demo-app-cluster.walkersdev.co.uk'"
     source_ref: '1.0.0' # probs over written in jenkins
     ignore_differences: *ignore_differences
   - name: pet-battle-api
