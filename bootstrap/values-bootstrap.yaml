@@ -5,7 +5,7 @@
 
 bootstrap-project:
   enabled: true
-  ci_cd_namespace: &ci_cd 'vodafone-cicd'
+  ci_cd_namespace: &ci_cd 'vodafone-ci-cd'
   dev_namespace: &dev 'vodafone-dev'
   test_namespace: &test 'vodafone-test'
   staging_namespace: &stage 'vodafone-staging'
