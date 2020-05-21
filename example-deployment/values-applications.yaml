@@ -1,7 +1,7 @@
 # Over rides for default values in Helm Charts
 destination_test: &test_ns ds-test
 destination_staging: &staging_ns ds-staging
-helm_repository: &helm_repo "https://nexus-ds-ci-cd.apps.hivec.sandbox1559.opentlc.com/repository/helm-charts/"
+helm_repository: &helm_repo "https://nexus-ds-ci-cd.apps.s43.core.rht-labs.com/repository/helm-charts/"
 ##############
 # Application Custom Values
 #############
