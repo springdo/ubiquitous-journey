@@ -10,6 +10,10 @@ pet_battle: &front_end_values
   config_map: "'http://pet-battle-api-ds-test.apps.s43.core.rht-labs.com'"
 pet_battle_api: &api_values
   appName: pet-battle-api
+  image_repository: quay.io
+  image_name: pet-battle-api
+  image_namespace: eformat
+  image_version: latest
 ##############
 # Argo Ignore Differences
 #############
