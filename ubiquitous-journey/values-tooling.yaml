@@ -5,6 +5,7 @@ destination: &ci_cd_ns my-ci-cd
 # 🛎 Jenkins Custom Values
 #############
 jenkins_values: &jenkins_values
+  source_secrets: {}
   sealed_secrets:
     - name: git-auth
       password: AgA5zLN6x2KP6m5Q6UNB7XDBGs4m1EO+qQwYMoOUaa02bnX1YbrMo9URARX5k1whNn7FV8uP9Z/DuIag/YOKrILaFBrITtfF9ZDJw2KYqpXngWLo20igVSZngEIjHnPgI5L0zY32/rM3AG65R3Qh7TFt7mKOvolOMdpYD7iNM13ohQRMEoERhswA9JqxunIvCB5e+DtR3CDcQR6FjLOOFAK52vsGzDTUa1ge0zFHXz30s9XGLQHGIoUF45WP3l9q0o0iFZzDv8TI7yCXgA7877A8fuWH0Ab7LvOXepicscZWuVw3l2NRAa0i7fQUjiYNzARa15HVfI5vMWWfNRUuxjC1tVVgiOi4EyOAr1KYicxedZWXo4wSD5heBPRKyq+62VPVenQwQIv9fA3nbJPa2RP2BqyhtWbY2Gv+IzkuEvtAIR7eK7sI6flBDU0zP5o2stHf2uHEEXMUtE5WGYyDwEzub7OocMdZ3WOYbgC767zRQx81jMfi/Cod0MfcMdI+t6DQ6dwpo6G8je2a+HUIWOGFd+AIfYn3VUHlRnrTmynYcZZ+zxhVv98PgKCxFASM/cY/575Gpw/r70E5vWXI8NzYtRC97LsN/Bd9zCiC6dTA/cAt8M35xdBs3vaIWgNHn3fI5MFZRgC/NaUNjsxze/R3D8Qxn7oq/C25+Stu6tygz6nDS8znM15zO+rAECRkaThmVnKxY0Kwgw==
