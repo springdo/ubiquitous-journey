@@ -5,17 +5,16 @@ destination: &ci_cd_ns my-ci-cd
 # 🛎 Jenkins Custom Values
 #############
 jenkins_values: &jenkins_values
-  persistence: false
-  source_secrets:
+  sealed_secrets:
     - name: git-auth
-      username: idm-sa
-      password: thisisdefinitelymypassword
+      password: AgA5zLN6x2KP6m5Q6UNB7XDBGs4m1EO+qQwYMoOUaa02bnX1YbrMo9URARX5k1whNn7FV8uP9Z/DuIag/YOKrILaFBrITtfF9ZDJw2KYqpXngWLo20igVSZngEIjHnPgI5L0zY32/rM3AG65R3Qh7TFt7mKOvolOMdpYD7iNM13ohQRMEoERhswA9JqxunIvCB5e+DtR3CDcQR6FjLOOFAK52vsGzDTUa1ge0zFHXz30s9XGLQHGIoUF45WP3l9q0o0iFZzDv8TI7yCXgA7877A8fuWH0Ab7LvOXepicscZWuVw3l2NRAa0i7fQUjiYNzARa15HVfI5vMWWfNRUuxjC1tVVgiOi4EyOAr1KYicxedZWXo4wSD5heBPRKyq+62VPVenQwQIv9fA3nbJPa2RP2BqyhtWbY2Gv+IzkuEvtAIR7eK7sI6flBDU0zP5o2stHf2uHEEXMUtE5WGYyDwEzub7OocMdZ3WOYbgC767zRQx81jMfi/Cod0MfcMdI+t6DQ6dwpo6G8je2a+HUIWOGFd+AIfYn3VUHlRnrTmynYcZZ+zxhVv98PgKCxFASM/cY/575Gpw/r70E5vWXI8NzYtRC97LsN/Bd9zCiC6dTA/cAt8M35xdBs3vaIWgNHn3fI5MFZRgC/NaUNjsxze/R3D8Qxn7oq/C25+Stu6tygz6nDS8znM15zO+rAECRkaThmVnKxY0Kwgw==
+      username: AgBuPnWlJqsVUM8xR9a12Qc5cjf4FR14akGrmipwKaecQVLZBQpVlTi/6NElW0Bm0xGNUWEUW/jYWhXOjDfn5wKTNw9DPU/PflqRWm025/LfYk+i0A+OHV2Wpm0zBIKuU0evHILEpoGiLbPRUffnfMRgB+HDC5VS3QL5NZcSkc/1ziObcAMseCJPHtTcdPxXlyvl+berprIhSZErUwEt5JAUobt8fo2k0IYxQFS2PzscSmGYCa6pFO9JbKpwAEnfrboKjYrcL6yDZ0Kptpc7j/6u+1oLJo7OFXmA5eC5f9ljDCP9HACCVD2UGVdossJ4QP0yXFQSUcZgvp1QEetbuC2BH8QKjgILLNOvTgoELQNg10eqLRIBIXtrcvoCZzWogDXFhsBUFq8+DzyBoKsU0zF6qkTTBDlUT2/ki5AO0KFv6Gz1XLmRZJR/yK94lk4ZQFWZEhv80woRGszIJNt2RAYqx3FDMRD4XmP16ZgHbqkjGO4Rn+8H1hgP2UoJL+1sNsXhDS3BAVsd3JlwIvYv2rfrPV5a3lJHeVC8JDK0TPqXfFplfvpvL7QD90nqloDEGhDGLfGgzuJBb1gPaoUm3gzgogEvOyvmasViqJ82MfIiet+z1l+b3M/VP+k5YoVGRw0gKXxlNOue2TBJ8afFQOKLs3lJQv9wytRqtV74awcGAN+tcxHR11aOxWS1wTW30okbGaIyyw==
     - name: nexus-password
-      username: admin
-      password: admin123
+      password: AgCt5eaBg2CmXkwlPOsCyzsUu/6FxP7VH/YnKVv+eSHnR397KQCfz0X3JASRCKZvIRUIJPJMHb9rjaJ/g9EM4v1GSbIP5KW7gL1DMUSoeHtU69+9A7QYB9VF3PbGPS7vhPaxjBN7PLp4ulkgb9j4TLHb8+sQR7zLykr/mF5YeaYpwYwlsa3+s7SAkvIpdq9gMzZN8LORfhcrJCOp7WVKDRBxYSHv1OtQVWR4xPL6hyFjkELhiiGI3LStSNChr6uHFu6WEJT/CIxql45qaczieZU+uRJ3klVQUQ7V+XvhUIRIyB3I/AfDyBmXcYBXSIukkFWF5+WeI07iKeTkGoWHy5aGkY+Cn8Ts1y3fHBtaCLI1H+MNol0APWrt4QzLhoLRQEi9d6R0D5pe5F9PAj6zcTbQPrZ1S1318smM7Y5KKh+7QpX5okSYKt4wJUu6YE+QpadhvNVwGt5UYIZiDx3QtsUs2Vs7EvDKRjZxNomqSqcjIaF/Pgf/o6TvHxNYnZVTD/yDpJjKoKWkf2pFGZsbLMZLhnNSfeQnBgSGIrFQDMZF4ekt1DPGE/pPOzbbrJM2nCsXFo1ult6nID7zb45rNO0ao1ciQbrWA4VMHeBVmlWXGsSAqHZqDYf9PonFsK8KKVfV1wtlbzx5awwvacBC3feuaFd9zemL/Hk0xzfJ7pT8pSEOBYf+Yx6GYAFMoai4UnGz7NN0wVqt4A==
+      username: AgBgnWfOMW4OjZiNjoT0ziWNVCVYc7QrSGxQtj7+xNa0YTYzgm5fFrIavatfCLkerLvbIrRfIhfw47G0Wb/aLhXtDFuGhO9p+ZU3cSTyhvhUdATbKWOFvvhfnua4g8mchdi5bT70Wo8xlvdyCPk7nz8iyADZMIN1BhaJZihzUgdxlMXJwFWL7dD1XmVbtVLYuCe4NZWWyIco8ytclD53VI0zwK/SdzwcRxVPV2Yp29hJ9s51lgtLOPQasG1HcrN9nfl0XO/ts+CsEuqdQgg0wKBNWF2oTnLqhBH4T+w2sczZ9mdOWt//JjTuCObb6/b3LGCbNHj8KVvIL1/dIO+nQj+dpJ6sLFdJNVG4XA2TwiLVEJ6pKvwn7NyMSGPEb/Lq0654EZtwbcv4Sb4PCM1j4PtN64WBRITSku4dt1ey/SVVVI4vM0Xfb1qqnryPxdNzJ4q1JnmP/gfJobOAwwHSs/Si7UKA3M67w52LztNNgncUVDB7Ol5P+kGVsxL0S5ODJutYtEHs8ltPeaagYEg68PNgTv8vsnXIIwpGr3cu9XYWZWt8zJapJmXPP1icuLePu4G1CQ9m1bzuEllMiMLRX4/l778gESKOzIBHyQeICPQW4IY8Oa3kl44n2SaB4l8I+C+ODoVn0+aM9EWr+8tuDyWX44C8+eNW6Qu+nUczUxVLMU226Vg2fyOEn48C2bh75dE84qpxdA==
     - name: argocd-token
-      username: token
-      password: aaa.bbb.ccc
+      password: AgCT9eoNmKj0UaoWeqOQqDqGaT2PI/w+ke3kntL+54DVoCB5wLWYZ5Ia7NIRM+0tvsixOA306E+FXYW1klNU6R/nDPidWEaLdHKbs1w0dcjJNVaIE22OzelKHxh+uAS1czg9vBcDIb3mfRSwmT2ZJ0NRhf32O/cTFC3sJyCFEiZ/g6BwcD9r134ReYBS92Q6sHOXwd9MOTMlLwqzfAgtGaDtSx/jrawNxabmAyBYypFRHKybZXJGkj0T+heiXs0Bt6YItaKIG+o06esyYwJ0FIc7H3r9VNs7ydzBTm1m9pMpc9enNJ0Ibsu9XxK0bjGu1rOV/Bz2z+nZbcBiFJs814Rpr15qU2t2yeqHI3sndraytpq7JnHjiPsQt0hKJS1fZCF6Oz0odu/IDFEf9D8cvT778cq80eQX/8/O/pP3bzcucybBgQC4ahH07bjMuQiACweCQlp1uRbk295Y5+3tIRCjXeGU4wJ39GKW6LaXEX2jeeqkKur0z7cljdYomL/mLWDCDGMdxThlUdzWVKfDf/Y81Rg2cTOglyMfiakL4KeAAJFeN6KGTby/GGXwOj3LJkE8nawGd4d/haLVIjqQS8esjunxO2L71Cr4MSmcIUhNNX9pCMWxsnMqmVH4yCW47zIzV+Wa/Y22dA1AIkAgLMTPNrUmCgdAklVgol3q2OLfyqQ4cxXrbTweMSKP4jxBmnoRZi7Hy1cbaQ==
+      username: AgAtWXZvxiNlVYdd1v5jWje67sI1v5rkHK+3ArEqVXk4HRcxrigbjiRAlw8bGxTPE56dBzc10fUhplW1cgLF7KNPjJbTc3L29utbtJUNKnrsSFIoNjaiY++TQEOwuRVYpcHNK83AFzEK4Hm8Rt0eN9ix0hk5Ja438P+dMDIbKhCamK6SavRfBDgJ2dS8L7il7ANYvY4THCEHvnD7Vbr9FXf7+0nu5sCoXGlOI+6U3ybpoAhHl5/bBN9BryenOCtF6vRw10MnCrUjvBalJSGvvYUEMc7RutKn37BTJDb2vCbbCVPDSL5g6e88zzUFPlahwr+taxOBfSNZvdOb7kg9HsFd62C7YW3ZQJu9OE4TaLP9+boaVNF4q1tfff9+CD3yZntJsh6qc5I9m0kBb0pPXaK/KKtUfuivFJZUeihCZ/jXgSymNebqxCsS+yYCpW0eahgdacWFTX2ydifjPlY4FBtjmU2qfwI7/73MUTh+4Yfy1AkcBIPGpsiBd0cUpVjusuRvC9xFJzkIxYPVlImNq36QhITqVdvPiUF58wMvzPcXv02eK13LSWR+bJfP2VYpurN10lVbDi1IPG0+gku77PuM/zD0Ujvyvn3siq+T0wvWu1rukjc1wys4x3HILcSEYCRQQJRm6CMxuC9JkrK9nNj7IdGM3pkOBjRJiplo9592BXjQW3BKTkX2ezPMsQaofPPiMxGFQw==
 
 ##############
 # 🛎 Pact Broker Custom Values
@@ -243,7 +242,7 @@ applications:
     enabled: true
     source: https://github.com/rht-labs/helm-charts.git
     source_path: charts/jenkins
-    source_ref: "jenkins-0.0.15"
+    source_ref: "feature/jenkins-sealed-secrets"
     sync_policy:
       *sync_policy_true
     destination: *ci_cd_ns
@@ -268,16 +267,6 @@ applications:
     sync_policy:
       *sync_policy_true
     destination: *ci_cd_ns
-  - name: crw
-    enabled: true
-    destination: crw
-    source: https://github.com/rht-labs/refactored-adventure
-    source_path: crw/base
-    source_ref: master
-    sync_policy:
-      *sync_policy_no_selfheal
-    no_helm: true
-    ignore_differences: *crw_ignore_differences
   - name: zalenium
     enabled: true
     source: https://github.com/zalando/zalenium.git
@@ -309,59 +298,3 @@ applications:
     source_ref: "v4.01"
     values:
       *wekan_values
-  - name: tekton
-    enabled: true
-    destination: crw
-    source: https://github.com/rht-labs/refactored-adventure
-    source_path: tekton/base
-    source_ref: master
-    sync_policy:
-      *sync_policy_true
-    no_helm: true
-  - name: mattermost
-    enabled: true
-    source: https://github.com/mattermost/mattermost-helm.git
-    source_path: charts/mattermost-team-edition
-    destination: *ci_cd_ns
-    source_ref: "mattermost-team-edition-3.10.0"
-    values:
-      *mattermost_values
-  - name: etherpad
-    enabled: true
-    source: https://github.com/rht-labs/helm-charts.git
-    source_path: charts/etherpad
-    destination: *ci_cd_ns
-    source_ref: "etherpad-0.0.1"
-    sync_policy:
-      *sync_policy_true
-  - name: dev-ex-dashboard
-    enabled: true
-    source: https://github.com/rht-labs/helm-charts.git
-    source_path: charts/dev-ex-dashboard
-    destination: *ci_cd_ns
-    source_ref: "dev-ex-dashboard-0.0.1"
-    sync_policy:
-      *sync_policy_no_selfheal
-    ignore_differences: *dev-ex-dashboard_ignore_differences
-  - name: owncloud
-    enabled: true
-    source: https://github.com/rht-labs/helm-charts.git
-    source_path: charts/owncloud
-    destination: *ci_cd_ns
-    source_ref: "owncloud-0.0.1"
-    sync_policy:
-      *sync_policy_true
-    ignore_differences: *owncloud_ignore_differences
-    values:
-      *owncloud_values
-  - name: vault
-    enabled: true
-    source: https://github.com/radudd/vault-helm.git
-    source_path: .
-    source_ref: openshift
-    destination: *ci_cd_ns
-    sync_policy:
-      *sync_policy_true
-    ignore_differences: *vault_ignore_differences
-    values:
-      *vault_values
