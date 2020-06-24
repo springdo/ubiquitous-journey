@@ -42,6 +42,7 @@ applications:
     enabled: true
     source: https://eformat.github.io/helm-charts
     source_path: ""
+    chart_name: pet-battle-api # probs over written in jenkins
     sync_policy_automated: true
     destination: *test_ns
     source_ref: master
