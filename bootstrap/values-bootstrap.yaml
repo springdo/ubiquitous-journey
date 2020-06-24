@@ -58,6 +58,8 @@ argocd-operator:
     enabled: false
     prometheus:
       version: prometheusoperator.0.32.0
+  accounts:
+    accounts.admin: apiKey
 
 sealed-secrets:
   # Disabled by default
