@@ -19,49 +19,49 @@ pet_battle_api: &api_values
 #############
 ignore_differences: &ignore_differences
   ignoreDifferences:
-  - group: apps.openshift.io
-    kind: DeploymentConfig
-    jsonPointers:
-    - /spec/template/spec/containers/0/image
-    - /spec/triggers/0/imageChangeParams/lastTriggeredImage
-    - /spec/triggers/1/imageChangeParams/lastTriggeredImage
+    - group: apps.openshift.io
+      kind: DeploymentConfig
+      jsonPointers:
+        - /spec/template/spec/containers/0/image
+        - /spec/triggers/0/imageChangeParams/lastTriggeredImage
+        - /spec/triggers/1/imageChangeParams/lastTriggeredImage
 ##############
 # Argo App of Apps declaration
 #############
 applications:
-- name: test-pet-battle # Test App deployment 
-  enabled: true
-  source: *helm_repo
-  source_path: ""
-  chart_name: pet-battle # probs over written in jenkins
-  sync_policy_automated: true
-  destination: *test_ns
-  source_ref: 1.0.0
-  ignore_differences: *ignore_differences
-- name: test-pet-battle-api
-  enabled: true
-  source: https://github.com/eformat/pet-battle-api.git
-  source_path: ""
-  sync_policy_automated: true
-  destination: *test_ns
-  source_ref: master
-  ignore_differences: *ignore_differences
-  # Staging App deployment 
-- name: pet-battle
-  enabled: true
-  source: *helm_repo
-  source_path: ""
-  chart_name: pet-battle # probs over written in jenkins
-  sync_policy_automated: true
-  destination: *staging_ns
-  source_ref: "1.0.0" # probs over written in jenkins
-  ignore_differences: *ignore_differences
-- name: pet-battle-api
-  enabled: true
-  source: *helm_repo
-  source_path: ""
-  chart_name: pet-battle-api # probs over written in jenkins
-  sync_policy_automated: true
-  destination: *staging_ns
-  source_ref: 1.0.0
-  ignore_differences: *ignore_differences
+  - name: test-pet-battle # Test App deployment 
+    enabled: true
+    source: *helm_repo
+    source_path: ""
+    chart_name: pet-battle # probs over written in jenkins
+    sync_policy_automated: true
+    destination: *test_ns
+    source_ref: 1.0.0
+    ignore_differences: *ignore_differences
+  - name: test-pet-battle-api
+    enabled: true
+    source: https://github.com/eformat/pet-battle-api.git
+    source_path: ""
+    sync_policy_automated: true
+    destination: *test_ns
+    source_ref: master
+    ignore_differences: *ignore_differences
+    # Staging App deployment 
+  - name: pet-battle
+    enabled: true
+    source: *helm_repo
+    source_path: ""
+    chart_name: pet-battle # probs over written in jenkins
+    sync_policy_automated: true
+    destination: *staging_ns
+    source_ref: 1.0.9
+    ignore_differences: *ignore_differences
+  - name: pet-battle-api
+    enabled: true
+    source: *helm_repo
+    source_path: ""
+    chart_name: pet-battle-api # probs over written in jenkins
+    sync_policy_automated: true
+    destination: *staging_ns
+    source_ref: 1.0.0
+    ignore_differences: *ignore_differences
