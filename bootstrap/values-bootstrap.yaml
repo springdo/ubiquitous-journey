@@ -45,12 +45,12 @@ argocd-operator:
   enabled: true
   name: argocd
   namespace: *ci_cd
-  instancelabel: ds.rht-labs.com/uj
+  instancelabel: ds-labs.com/uj
   
   # operator manages upgrades etc
-  version: v1.5.5
+  version: v1.6.0
   operator:
-    version: argocd-operator.v0.0.8
+    version: argocd-operator.v0.0.9
     channel: alpha
     name: argocd-operator
 
@@ -58,3 +58,15 @@ argocd-operator:
     enabled: false
     prometheus:
       version: prometheusoperator.0.32.0
+
+sealed-secrets:
+  # Disabled by default
+  enabled: true
+  nameOverride: sealed-secrets
+  fullnameOverride: sealed-secrets
+  # namespace must exist, so we use labs-ci-cd by default.
+  namespace: *ci_cd
+  # Dont touch the security context values, deployment will fail in OpenShift otherwise.
+  securityContext:
+    runAsUser: ""
+    fsGroup: ""

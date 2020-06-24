@@ -1,13 +1,13 @@
 # Over rides for default values in Helm Charts
 destination_test: &test_ns ds-test
 destination_staging: &staging_ns ds-staging
-helm_repository: &helm_repo "https://nexus-ds-ci-cd.apps.s43.core.rht-labs.com/repository/helm-charts/"
+helm_repository: &helm_repo "https://nexus-ds-ci-cd.apps.s44.core.rht-labs.com/repository/helm-charts/"
 ##############
 # Application Custom Values
 #############
 # toggle between versions of the app by setting the tag to grey / purple or latest
 pet_battle: &front_end_values
-  config_map: "'http://pet-battle-api-ds-test.apps.s43.core.rht-labs.com'"
+  config_map: "'http://pet-battle-api-ds-test.apps.s44.core.rht-labs.com'"
 pet_battle_api: &api_values
   appName: pet-battle-api
   image_repository: quay.io
