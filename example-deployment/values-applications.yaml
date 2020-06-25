@@ -55,7 +55,7 @@ applications:
     chart_name: pet-battle # probs over written in jenkins
     sync_policy_automated: true
     destination: *staging_ns
-    source_ref: 1.0.0
+    source_ref: 1.0.1
     ignore_differences: *ignore_differences
   - name: pet-battle-api
     enabled: true
