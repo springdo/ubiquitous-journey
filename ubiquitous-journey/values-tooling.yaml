@@ -7,9 +7,9 @@ destination: &ci_cd_ns my-ci-cd
 jenkins_values: &jenkins_values
   persistence: false
   source_secrets:
-    - name: git-auth
+    - name: donal-auth
       username: idm-sa
-      password: thisisdefinitelymypassword
+      password: 🐈🐈willopenshiftallowthis🐈🐈
     - name: nexus-password
       username: admin
       password: admin123
