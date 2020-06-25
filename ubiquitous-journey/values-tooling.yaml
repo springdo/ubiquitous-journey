@@ -1,5 +1,5 @@
 # Over rides for default values in Helm Charts
-destination: &ci_cd_ns labs-ci-cd
+destination: &ci_cd_ns my-ci-cd
 
 ##############
 # 🛎 Jenkins Custom Values
@@ -260,24 +260,6 @@ applications:
     destination: *ci_cd_ns
     values:
       *pact_broker_values
-  - name: sonarqube
-    enabled: true
-    source: https://github.com/rht-labs/helm-charts.git
-    source_path: charts/sonarqube
-    source_ref: "sonarqube-0.0.4"
-    sync_policy:
-      *sync_policy_true
-    destination: *ci_cd_ns
-  - name: crw
-    enabled: true
-    destination: crw
-    source: https://github.com/rht-labs/refactored-adventure
-    source_path: crw/base
-    source_ref: master
-    sync_policy:
-      *sync_policy_no_selfheal
-    no_helm: true
-    ignore_differences: *crw_ignore_differences
   - name: zalenium
     enabled: true
     source: https://github.com/zalando/zalenium.git
@@ -309,59 +291,3 @@ applications:
     source_ref: "v4.01"
     values:
       *wekan_values
-  - name: tekton
-    enabled: true
-    destination: crw
-    source: https://github.com/rht-labs/refactored-adventure
-    source_path: tekton/base
-    source_ref: master
-    sync_policy:
-      *sync_policy_true
-    no_helm: true
-  - name: mattermost
-    enabled: true
-    source: https://github.com/mattermost/mattermost-helm.git
-    source_path: charts/mattermost-team-edition
-    destination: *ci_cd_ns
-    source_ref: "mattermost-team-edition-3.10.0"
-    values:
-      *mattermost_values
-  - name: etherpad
-    enabled: true
-    source: https://github.com/rht-labs/helm-charts.git
-    source_path: charts/etherpad
-    destination: *ci_cd_ns
-    source_ref: "etherpad-0.0.1"
-    sync_policy:
-      *sync_policy_true
-  - name: dev-ex-dashboard
-    enabled: true
-    source: https://github.com/rht-labs/helm-charts.git
-    source_path: charts/dev-ex-dashboard
-    destination: *ci_cd_ns
-    source_ref: "dev-ex-dashboard-0.0.1"
-    sync_policy:
-      *sync_policy_no_selfheal
-    ignore_differences: *dev-ex-dashboard_ignore_differences
-  - name: owncloud
-    enabled: true
-    source: https://github.com/rht-labs/helm-charts.git
-    source_path: charts/owncloud
-    destination: *ci_cd_ns
-    source_ref: "owncloud-0.0.1"
-    sync_policy:
-      *sync_policy_true
-    ignore_differences: *owncloud_ignore_differences
-    values:
-      *owncloud_values
-  - name: vault
-    enabled: true
-    source: https://github.com/radudd/vault-helm.git
-    source_path: .
-    source_ref: openshift
-    destination: *ci_cd_ns
-    sync_policy:
-      *sync_policy_true
-    ignore_differences: *vault_ignore_differences
-    values:
-      *vault_values
