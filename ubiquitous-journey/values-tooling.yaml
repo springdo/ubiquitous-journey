@@ -1,5 +1,5 @@
 # Over rides for default values in Helm Charts
-destination: &ci_cd_ns labs-ci-cd
+destination: &ci_cd_ns my-ci-cd
 
 ##############
 # 🛎 Jenkins Custom Values
@@ -13,9 +13,6 @@ jenkins_values: &jenkins_values
     - name: nexus-password
       username: admin
       password: admin123
-    - name: argocd-token
-      username: token
-      password: aaa.bbb.ccc
 
 ##############
 # 🛎 Pact Broker Custom Values
