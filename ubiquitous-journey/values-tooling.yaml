@@ -5,7 +5,7 @@ destination: &ci_cd_ns my-ci-cd
 # 🛎 Jenkins Custom Values
 #############
 jenkins_values: &jenkins_values
-  persistence: false
+  persistence: true
   source_secrets:
     - name: git-auth
       username: idm-sa
@@ -13,6 +13,29 @@ jenkins_values: &jenkins_values
     - name: nexus-password
       username: admin
       password: admin123
+  deployment:
+    openshiftauth: true
+    imagestream:
+      name: *name
+      tag: latest
+    limits:
+      memory_request: 2Gi
+      memory_limit: 6Gi
+      cpu_request: 500m
+      cpu_limit: 2
+    env_vars:
+      - name: JVM_ARCH
+        value: 'x86_64'
+      - name: DISABLE_ADMINISTRATIVE_MONITORS
+        value: 'false'
+      - name: ENABLE_FATAL_ERROR_LOG_FILE
+        value: 'false'
+      - name: JENKINS_OPTS
+        value: '--sessionTimeout=180'
+      - name: GITHUB_ORG
+        value: 'who-lxp'
+      - name: GITHUB_TOKEN
+        value: "TODO_ADD_TOKEN"
 
 ##############
 # 🛎 Pact Broker Custom Values
