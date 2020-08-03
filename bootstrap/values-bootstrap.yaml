@@ -5,17 +5,17 @@
 
 bootstrap-project:
   enabled: true
-  ci_cd_namespace: &ci_cd "labs-ci-cd"
-  dev_namespace: &dev "labs-dev"
-  test_namespace: &test "labs-test"
-  staging_namespace: &stage "labs-staging"
+  ci_cd_namespace: &ci_cd "my-ci-cd"
+  dev_namespace: &dev "my-dev"
+  test_namespace: &test "my-test"
+  staging_namespace: &stage "my-staging"
   bindings: &binds
       # this labs-devs is the GROUP NAME in IDM
-    - name: labs-devs
+    - name: who-users
       kind: Group
       role: edit
     # this labs-admins is the GROUP NAME in IDM
-    - name: labs-admins
+    - name: who-admins
       kind: Group
       role: admin
     - name: jenkins
@@ -45,7 +45,7 @@ argocd-operator:
   enabled: true
   name: argocd
   namespace: *ci_cd
-  instancelabel: rht-labs.com/uj
+  instancelabel: my.rht-labs.com/uj
   
   # operator manages upgrades etc
   version: v1.6.1
@@ -55,7 +55,7 @@ argocd-operator:
     name: argocd-operator
 
   metrics:
-    enabled: true
+    enabled: false
     prometheus:
       version: prometheusoperator.0.32.0
 
